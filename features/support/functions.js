@@ -101,7 +101,33 @@ async function llenarCampo(json, element, texto) {
 
 }
 
+async function searchElement(json, element){
+
+    try{
+        var elemento = await driver.wait(until.elementLocated(By.xpath(json[element].Valor)), 2500, 500, 8000);
+    }catch(error){
+        errorTrace = error;
+        if (error.name === 'TimeoutError') {
+            await log.error('No se pudo localizar al elemento ' + element+ ' porque hubo un error de timeOut');
+        } else if(error.name === 'InvalidSelectorError'){
+            await log.error('No se pudo localizar al elemento: '+element+' porque hubo un error en el localizador del elemento');
+            await log.error(error);
+        }else if(error.message == "Cannot read property 'Valor' of undefined"){
+            await log.error('No se pudo localizar al elemento: '+element+' porque no se pudo encontrar el valor en el json');
+        }
+    }
+    if(elemento == undefined){
+        await driver.sleep(2500);
+        var elemento = await driver.findElement(By.xpath(json[element].Valor));
+        log.info('Se pudo cargar el elemento por findElement')
+    }
+    await driver.sleep(500);
+    return elemento;
+}
+
+
 module.exports = {
     clickElement,
-    llenarCampo
+    llenarCampo,
+    searchElement
 }
