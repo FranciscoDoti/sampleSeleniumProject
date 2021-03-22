@@ -7,6 +7,7 @@ Feature: Feature name
     And Lleno el campo "Barra Buscar" con "hola"
     And Hago click en "Sobre Google"
 
+    
     @prueba
     Scenario: Prueba ale
     Given Abro la pagina "spotify"
@@ -22,10 +23,12 @@ Feature: Feature name
     And I click on element "Registrarse"
     And Scrolleo hasta el elemento "Error sexo"
     Then verifico que el elemento "Error sexo" incluya el texto "Selecciona tu sexo"
+    And activo checkbox "Hombre"
+    And desactivo checkbox ""
+    
+    Scenario: prueba
+    Given hago una prueba
     
     Scenario: hola
-    * capturo el texto del elemento ""
     * acepto alerta ""
     * cancelo alerta ""
-    * activo checkbox ""
-    * desactivo checkbox ""

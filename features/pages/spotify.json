@@ -42,5 +42,10 @@
     "Error sexo": {
         "identificador": "blabla",
         "Valor": "//div[text()='Selecciona tu sexo.']"
+    },
+
+    "Hombre": {
+        "identificador": "blabla",
+        "Valor": "//input[@id='gender']//ancestor::label/span"
     }
 }
