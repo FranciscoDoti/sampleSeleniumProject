@@ -1,6 +1,6 @@
 const { assert } = require('chai');
 const { Given, And, When, Then } = require('cucumber');
-const { clickElement , llenarCampo, searchElement, getInt } = require('../support/functions');
+const { clickElement , llenarCampo, searchElement, getInt, scrollToBottom } = require('../support/functions');
 const { log } = require(`${process.cwd()}/logger`);
 const urls  = require(`${process.cwd()}/urls.json`);
 require(`${process.cwd()}/features/support/functions.js`);
@@ -10,9 +10,10 @@ const { By, Key, until } = require('selenium-webdriver');
 
 Given('hago una prueba', async function(){
 
-    await driver.get('https://www.youtube.com/');
+    await driver.get('https://www.google.com/search?q=medal+of+honor+1+descargar+para+pc&sxsrf=ALeKk03E3I1Yop11TLNq3duLk98PBTH4xw%3A1616373785640&ei=GehXYOm-JvTD5OUP-qKG0A8&oq=medal+of+honor+1+ps1&gs_lcp=Cgdnd3Mtd2l6EAEYATIHCAAQRxCwAzIHCAAQRxCwAzIHCAAQRxCwAzIHCAAQRxCwAzIHCAAQRxCwAzIHCAAQRxCwAzIHCAAQRxCwAzIHCAAQRxCwA1AAWABgs-EBaAFwAngAgAFTiAFTkgEBMZgBAKoBB2d3cy13aXrIAQjAAQE&sclient=gws-wiz');
     await driver.manage().window().maximize();
     await driver.sleep(5000);
+    await scrollToBottom();
     var elemeto = await driver.findElements(By.xpath('//yt-formatted-string[@id="video-title"]'));
     for(var i=0; i<=5; i++){
 

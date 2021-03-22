@@ -8,7 +8,6 @@ Feature: Feature name
     And Hago click en "Sobre Google"
 
     
-    @prueba
     Scenario: Prueba ale
     Given Abro la pagina "spotify"
     And Leo los datos de "spotify"
@@ -26,6 +25,7 @@ Feature: Feature name
     And activo checkbox "Hombre"
     And desactivo checkbox ""
     
+    @prueba
     Scenario: prueba
     Given hago una prueba
     
