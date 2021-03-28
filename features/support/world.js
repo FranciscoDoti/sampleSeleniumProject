@@ -17,6 +17,7 @@ function ThisWorld({ attach }) {
   this.data = new Map();
   this.screenshots = 'onFail';
   this.attach = attach;
+  this.array = [];
 };
 
 setWorldConstructor(ThisWorld);

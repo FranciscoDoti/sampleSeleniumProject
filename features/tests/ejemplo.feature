@@ -30,5 +30,5 @@ Feature: Feature name
     Given hago una prueba
     
     Scenario: hola
-    * acepto alerta ""
-    * cancelo alerta ""
+    * acepto alerta
+    * cancelo alerta

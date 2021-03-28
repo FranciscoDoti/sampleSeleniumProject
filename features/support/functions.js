@@ -106,12 +106,9 @@ async function searchElement(json, element){
     for(var i=0; i<=3; i++){
 
         try{
-            var elemento = await driver.wait(until.elementLocated(By.xpath(json[element].Valor)), 2500, 500, 8000);
+            var elemento = await driver.wait(until.elementLocated(By.xpath(json[element].Valor)), 8000);
             break;
         }catch(error){
-            log.info('no se pudo encontrar el elemento. Intento numero: '+mistake);
-            mistake++
-            errorTrace = error;
             if (error.name === 'TimeoutError') {
                 await log.error('No se pudo localizar al elemento ' + element+ ' porque hubo un error de timeOut');
             } else if(error.name === 'InvalidSelectorError'){
@@ -119,15 +116,15 @@ async function searchElement(json, element){
             }else if(error.message == "Cannot read property 'Valor' of undefined"){
                 await log.error('No se pudo localizar al elemento: '+element+' porque no se pudo encontrar el valor en el json');
             }
+        }
 
-    }
     }
     if(elemento == undefined){
         try{
 
             await driver.sleep(2500);
             var elemento = await driver.findElement(By.xpath(json[element].Valor));
-            log.info('Se pudo cargar el elemento por findElement')
+            log.info('Se pudo cargar el elemento por findElement');
         }catch{
             log.error('El elemento no pudo ser encontrado. Revisar identificadores, localizadores, tiempo de carga o scrolleo');
         }
@@ -199,7 +196,7 @@ async function getInt(webElement){
     }else{
         var newString = await string.match(/\d+/g, '');
     }
-    var result = parseFloat(newString);
+    var result = parseInt(newString);
 
     return result;
 }
@@ -225,8 +222,8 @@ async function scrollToBottom(){
 
 async function scrollToElement(json, element){
 
-    var element = await searchElement(json, element);
     try{
+        var element = await searchElement(json, element);
         await driver.sleep(1000);
         await driver.executeScript("window.scrollTo(0, document.body.scrollHeight)");
         await driver.sleep(2000);
@@ -235,8 +232,13 @@ async function scrollToElement(json, element){
 
     }
     try{
+        var element = await searchElement(json, element);
+        await driver.sleep(1000)
         await driver.executeScript("argumets[0].scrollIntoView(true)", element);
-    }catch{}
+        await driver.sleep(1000);
+    }catch{
+        log.error('no se pudo desplazar hasta el elemento: '+element);
+    }
 }
 
 
