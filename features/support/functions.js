@@ -101,7 +101,155 @@ async function llenarCampo(json, element, texto) {
 
 }
 
+async function searchElement(json, element){
+    var mistake = 0;
+    for(var i=0; i<=3; i++){
+
+        try{
+            var elemento = await driver.wait(until.elementLocated(By.xpath(json[element].Valor)), 8000);
+            break;
+        }catch(error){
+            if (error.name === 'TimeoutError') {
+                await log.error('No se pudo localizar al elemento ' + element+ ' porque hubo un error de timeOut');
+            } else if(error.name === 'InvalidSelectorError'){
+                await log.error('No se pudo localizar al elemento: '+element+' porque hubo un error en el localizador del elemento');
+            }else if(error.message == "Cannot read property 'Valor' of undefined"){
+                await log.error('No se pudo localizar al elemento: '+element+' porque no se pudo encontrar el valor en el json');
+            }
+        }
+
+    }
+    if(elemento == undefined){
+        try{
+
+            await driver.sleep(2500);
+            var elemento = await driver.findElement(By.xpath(json[element].Valor));
+            log.info('Se pudo cargar el elemento por findElement');
+        }catch{
+            log.error('El elemento no pudo ser encontrado. Revisar identificadores, localizadores, tiempo de carga o scrolleo');
+        }
+    }
+    await driver.sleep(500);
+    return elemento;
+}
+
+async function searchElements(json, element){
+    var mistake = 0;
+    for(var i=0; i<=3; i++){
+
+        try{
+            var elementos = await driver.wait(until.elementsLocated(By.xpath(json[element].Valor)), 2500, 500, 8000);
+            break;
+        }catch(error){
+            log.info('no se pudo encontrar el elemento. Intento numero: '+mistake);
+            mistake++
+            errorTrace = error;
+            if (error.name === 'TimeoutError') {
+                await log.error('No se pudo localizar al elemento ' + element+ ' porque hubo un error de timeOut');
+            } else if(error.name === 'InvalidSelectorError'){
+                await log.error('No se pudo localizar al elemento: '+element+' porque hubo un error en el localizador del elemento');
+            }else if(error.message == "Cannot read property 'Valor' of undefined"){
+                await log.error('No se pudo localizar al elemento: '+element+' porque no se pudo encontrar el valor en el json');
+            }
+
+    }
+    }
+    if(elementos == undefined){
+        try{
+
+            await driver.sleep(2500);
+            var elementos = await driver.findElements(By.xpath(json[element].Valor));
+            log.info('Se pudo cargar el elemento por findElement')
+        }catch{
+            log.error('El elemento no pudo ser encontrado. Revisar identificadores, localizadores, tiempo de carga o scrolleo');
+        }
+    }
+    await driver.sleep(500);
+    return elementos;
+}
+
+async function getInt(webElement){
+/*    var mistake = 0;
+    for(var i=0; i<=3; i++){
+
+        try{
+            var elementos = await driver.wait(until.elementsLocated(By.xpath(json[element].Valor)), 2500, 500, 8000);
+            break;
+        }catch(error){
+            log.info('no se pudo encontrar el elemento. Intento numero: '+mistake);
+            mistake++
+            errorTrace = error;
+            if (error.name === 'TimeoutError') {
+                await log.error('No se pudo localizar al elemento ' + element+ ' porque hubo un error de timeOut');
+            } else if(error.name === 'InvalidSelectorError'){
+                await log.error('No se pudo localizar al elemento: '+element+' porque hubo un error en el localizador del elemento');
+            }else if(error.message == "Cannot read property 'Valor' of undefined"){
+                await log.error('No se pudo localizar al elemento: '+element+' porque no se pudo encontrar el valor en el json');
+            }
+
+    }
+    }*/
+    var string = await webElement.getText();
+    if(string.includes('-')){
+        var negativString = await string.match(/\d+/g, '');
+        var newString = await '-'+negativString;
+    }else{
+        var newString = await string.match(/\d+/g, '');
+    }
+    var result = parseInt(newString);
+
+    return result;
+}
+
+async function scrollToBottom(){
+    try{
+
+        await driver.sleep(1000);
+        await driver.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        await driver.sleep(1000);
+    }catch{
+        var mistake = true;
+    }
+    if(mistake == true){
+        
+        try{
+            await actions.sendKeys(keys.END);
+        }catch{
+        log.error('se intento scrollear al final de la pagina sin exito');       
+        }
+    }
+}
+
+async function scrollToElement(json, element){
+
+    try{
+        var element = await searchElement(json, element);
+        await driver.sleep(1000);
+        await driver.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+        await driver.sleep(2000);
+        await driver.executeScript("window.scrollTo(0, 0)");
+    }catch{
+
+    }
+    try{
+        var element = await searchElement(json, element);
+        await driver.sleep(1000)
+        await driver.executeScript("argumets[0].scrollIntoView(true)", element);
+        await driver.sleep(1000);
+    }catch{
+        log.error('no se pudo desplazar hasta el elemento: '+element);
+    }
+}
+
+
+
+
 module.exports = {
     clickElement,
-    llenarCampo
+    llenarCampo,
+    searchElement,
+    searchElements,
+    getInt,
+    scrollToBottom,
+    scrollToElement
 }

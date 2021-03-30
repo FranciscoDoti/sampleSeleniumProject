@@ -3,6 +3,7 @@
     "env" : {
         "promiedos": "dev",
         "google": "dev",
+        "spotify": "dev",
         "itau": "testing"
     },
     "serverUrl": "https://zalenium.aper.cloud/wd/hub",

@@ -22,6 +22,21 @@
             "type": "node",
             "request": "launch",
             "console": "integratedTerminal",
+            "name": "prueba",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceRoot}/node_modules/cucumber/bin/cucumber-js",
+            "args": [
+                "${workspaceRoot}/features/tests/",
+                "--tags",
+                "@prueba"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "console": "integratedTerminal",
             "name": "Etiqueta Promiedos",
             "skipFiles": [
                 "<node_internals>/**"

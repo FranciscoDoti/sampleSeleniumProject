@@ -1,0 +1,51 @@
+{
+    "Email": {
+        "identificador": "xpath",
+        "Valor": "//input[@id='email']"
+    },
+
+    "Registrarse": {
+        "identificador": "xpath",
+        "Valor": "//button[contains(text(),'Registrarte')]"
+    },
+
+    "Mes": {
+        "identificador": "xpath",
+        "Valor": "//select[@id='month']"  
+    },
+
+    "Confirma email": {
+        "identificador": "xpath",
+        "Valor": "//input[@id='confirm']"  
+    },
+
+    "Password": {
+        "identificador": "xpath",
+        "Valor": "//input[@id='password']"  
+    },
+
+    "Nombre": {
+        "identificador": "xpath",
+        "Valor": "//input[@id='displayname']"  
+    },
+
+    "Dia": {
+        "identificador": "xpath",
+        "Valor": "//input[@id='day']"  
+    },
+
+    "Year": {
+        "identificador": "xpath",
+        "Valor": "//input[@id='year']"  
+    },
+
+    "Error sexo": {
+        "identificador": "blabla",
+        "Valor": "//div[text()='Selecciona tu sexo.']"
+    },
+
+    "Hombre": {
+        "identificador": "blabla",
+        "Valor": "//input[@id='gender']//ancestor::label/span"
+    }
+}
