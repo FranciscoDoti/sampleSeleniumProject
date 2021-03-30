@@ -1,4 +1,4 @@
-const { assert } = require('chai');
+const { assert, expect } = require('chai');
 const { Given, And, When, Then } = require('cucumber');
 const { clickElement , llenarCampo, searchElement, getInt, scrollToBottom } = require('../support/functions');
 const { log } = require(`${process.cwd()}/logger`);
@@ -14,7 +14,7 @@ Given('hago una prueba', async function(){
     await driver.manage().window().maximize();
     await driver.sleep(5000);
 //    await scrollToBottom();
-    var elemento = await driver.findElement(By.xpath("//h3[contains(text(),'Descargar Medal Of Honor Allied Assault Torrent ..')]"));
+    var elemento = await driver.wait(until.elementIsVisible(By.xpath("//h3[contains(text(),'Descargar Medal Of Honor Allied Assault Torrent ..')]")), 10000);
     var result = await elemento.elementIsVisible()
 
 

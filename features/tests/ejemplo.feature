@@ -8,6 +8,7 @@ Feature: Feature name
     And Hago click en "Sobre Google"
 
     
+    @prueba
     Scenario: Prueba ale
     Given Abro la pagina "spotify"
     And Leo los datos de "spotify"
@@ -24,11 +25,5 @@ Feature: Feature name
     Then verifico que el elemento "Error sexo" incluya el texto "Selecciona tu sexo"
     And activo checkbox "Hombre"
     And desactivo checkbox ""
-    
-    @prueba
-    Scenario: prueba
-    Given hago una prueba
-    
-    Scenario: hola
     * acepto alerta
     * cancelo alerta
